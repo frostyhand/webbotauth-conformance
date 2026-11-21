@@ -5,7 +5,7 @@ Six milestones. Each ends with a tagged public release.
 | # | Milestone | Output |
 | --- | --- | --- |
 | 1 | Runner | Command-line runner that signs or replays requests against a verifier under test over HTTP and records the outcome. Minimal opt-in report convention (the Appendix C.1 outcome), with adapters that infer outcomes from status codes where that is all a verifier exposes. |
-| 2 | Vector corpus | One schema for positive and negative cases; import of Appendix E, the published positive vectors and the community negative vectors; new cases for `ed25519` and `rsa-pss-sha512`, validity windows and clock skew. Each case cites a draft section and revision. |
+| 2 | Vector corpus | One schema for positive and negative cases; import of Appendix E and the published positive vectors; negative cases written from the draft text; new cases for `ed25519` and `rsa-pss-sha512`, validity windows and clock skew. Each case cites a draft section and revision. |
 | 3 | Key-directory simulator | Scripted server that records every fetch and serves changed key sets, errors and delays on cue. Cases for sections 4.4, 4.5, 5.5 and 6.10 and Appendix C. |
 | 4 | CI and adapters | Container image, GitHub Action, adapters for the open implementations listed in the draft. |
 | 5 | Interoperability round | Results matrix across willing implementations; private reports to maintainers first; issues or pull requests on the draft where the text is unclear; a report to the working group. |
