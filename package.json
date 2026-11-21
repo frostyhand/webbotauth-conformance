@@ -1,0 +1,11 @@
+{
+  "name": "webbotauth-conformance",
+  "version": "0.1.0-prototype",
+  "description": "Prototype black-box conformance runner for Web Bot Auth verifiers",
+  "license": "Apache-2.0",
+  "type": "module",
+  "private": true,
+  "bin": { "wbac": "bin/wbac.mjs" },
+  "engines": { "node": ">=22" },
+  "dependencies": { "web-bot-auth": "0.2.0" }
+}

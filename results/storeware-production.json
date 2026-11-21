@@ -1,0 +1,165 @@
+{
+  "label": "Storeware (production, black box)",
+  "target": "https://api.storeware.ai/api/agent-standing/self?livemode=false",
+  "ranAt": "2026-11-21T10:40:00.157Z",
+  "results": [
+    {
+      "id": "S01",
+      "name": "Ed25519 signature, fresh, Signature-Agent covered",
+      "expected": "verified",
+      "scoring": "scored",
+      "ref": "draft-ietf-webbotauth-httpsig-protocol#generating-http-message-signature",
+      "observed": "verified",
+      "status": 200,
+      "identity": "key-set:https://gist.githubusercontent.com/frostyhand/8adfbb713e6eafdda41e52e1495587e8/raw/8655c674cecd97558703a2129715f3c502b50179/storeware-wba-live-test.json",
+      "result": "pass"
+    },
+    {
+      "id": "S02",
+      "name": "rsa-pss-sha512 signature, fresh, Signature-Agent covered",
+      "expected": "verified",
+      "scoring": "scored",
+      "ref": "draft-ietf-webbotauth-httpsig-protocol#generating-http-message-signature",
+      "observed": "verified",
+      "status": 200,
+      "identity": "key-set:https://gist.githubusercontent.com/frostyhand/8adfbb713e6eafdda41e52e1495587e8/raw/8655c674cecd97558703a2129715f3c502b50179/storeware-wba-live-test.json",
+      "result": "pass"
+    },
+    {
+      "id": "S03",
+      "name": "Expired signature (expires one minute ago)",
+      "expected": "invalid",
+      "scoring": "scored",
+      "ref": "draft-ietf-webbotauth-httpsig-protocol#verifier-outcomes; RFC 9421 Section 3.2.1",
+      "observed": "rejected",
+      "status": 401,
+      "coarse": true,
+      "result": "pass"
+    },
+    {
+      "id": "S04",
+      "name": "Signature value altered after signing",
+      "expected": "invalid",
+      "scoring": "scored",
+      "ref": "RFC 9421 Section 3.2",
+      "observed": "rejected",
+      "status": 401,
+      "coarse": true,
+      "result": "pass"
+    },
+    {
+      "id": "S05",
+      "name": "Covered Signature-Agent value changed after signing",
+      "expected": "invalid",
+      "scoring": "scored",
+      "ref": "draft-ietf-webbotauth-httpsig-protocol#signature-agent; RFC 9421 Section 3.2",
+      "observed": "rejected",
+      "status": 401,
+      "coarse": true,
+      "result": "pass"
+    },
+    {
+      "id": "S06",
+      "name": "Signature-Agent present but not covered by the signature",
+      "expected": "invalid",
+      "scoring": "interpretation",
+      "ref": "draft-ietf-webbotauth-httpsig-protocol#signature-agent",
+      "note": "The draft says the member MUST be signed, as an obligation on the signer; whether a verifier must then reject is not stated.",
+      "observed": "verified",
+      "status": 200,
+      "identity": "key-set:https://gist.githubusercontent.com/frostyhand/8adfbb713e6eafdda41e52e1495587e8/raw/8655c674cecd97558703a2129715f3c502b50179/storeware-wba-live-test.json",
+      "result": "info"
+    },
+    {
+      "id": "S07",
+      "name": "keyid not provided by the resolved directory",
+      "expected": "unverified",
+      "scoring": "scored",
+      "ref": "draft-ietf-webbotauth-httpsig-protocol#verifier-outcomes",
+      "observed": "rejected",
+      "status": 401,
+      "coarse": true,
+      "result": "pass"
+    },
+    {
+      "id": "S08",
+      "name": "Signature-Agent member carries a parameter (MUST be ignored)",
+      "expected": "unverified",
+      "scoring": "scored",
+      "ref": "draft-ietf-webbotauth-httpsig-protocol#signature-agent",
+      "observed": "rejected",
+      "status": 401,
+      "coarse": true,
+      "result": "pass"
+    },
+    {
+      "id": "S09",
+      "name": "Signature-Agent URL uses http, not https",
+      "expected": "unverified",
+      "scoring": "scored",
+      "ref": "draft-ietf-webbotauth-httpsig-protocol#signature-agent",
+      "observed": "rejected",
+      "status": 401,
+      "coarse": true,
+      "result": "pass"
+    },
+    {
+      "id": "S10",
+      "name": "Lifetime longer than 24 hours (48 h)",
+      "expected": "verified",
+      "scoring": "interpretation",
+      "ref": "draft-ietf-webbotauth-httpsig-protocol#generating-http-message-signature",
+      "note": "The draft only RECOMMENDS at most 24 hours. Shows the verifier's own lifetime policy.",
+      "observed": "rejected",
+      "status": 401,
+      "coarse": true,
+      "result": "info"
+    },
+    {
+      "id": "D01",
+      "name": "Identity is the resolved key-set URL, not its origin",
+      "expected": "verified",
+      "scoring": "scored",
+      "ref": "draft-ietf-webbotauth-httpsig-protocol#url-is-identifier",
+      "observed": "verified",
+      "status": 200,
+      "identity": "key-set:https://gist.githubusercontent.com/frostyhand/8adfbb713e6eafdda41e52e1495587e8/raw/8655c674cecd97558703a2129715f3c502b50179/storeware-wba-live-test.json",
+      "result": "pass"
+    },
+    {
+      "id": "D02",
+      "name": "Two key sets on one shared host get two identities",
+      "expected": "verified",
+      "scoring": "scored",
+      "ref": "draft-ietf-webbotauth-httpsig-protocol#url-is-identifier",
+      "observed": "verified",
+      "status": 200,
+      "identity": "key-set:https://gist.githubusercontent.com/frostyhand/3d6a04c93326c93a21b70e8537e94a54/raw/79a595d9f3b0d9d25dc91ec56f391c0d95b1c897/b.jwks.json",
+      "result": "pass"
+    },
+    {
+      "id": "D03",
+      "name": "Key learned from directory A, request asserts directory B",
+      "expected": "unverified",
+      "scoring": "scored",
+      "ref": "draft-ietf-webbotauth-httpsig-protocol#validating-message-signature (key lookup keyed on the (URL, key) pair)",
+      "note": "Runs after S01, so a verifier that caches keys by keyid alone has already seen this key.",
+      "observed": "rejected",
+      "status": 401,
+      "coarse": true,
+      "result": "pass"
+    },
+    {
+      "id": "D04",
+      "name": "Signature-Agent URL with an added query string",
+      "expected": "verified",
+      "scoring": "interpretation",
+      "ref": "draft-ietf-webbotauth-httpsig-protocol#url-is-identifier; issue 154",
+      "note": "Whether the query is part of the identifier is open in issue 154. Reported, not scored.",
+      "observed": "verified",
+      "status": 200,
+      "identity": "key-set:https://gist.githubusercontent.com/frostyhand/8adfbb713e6eafdda41e52e1495587e8/raw/8655c674cecd97558703a2129715f3c502b50179/storeware-wba-live-test.json",
+      "result": "info"
+    }
+  ]
+}

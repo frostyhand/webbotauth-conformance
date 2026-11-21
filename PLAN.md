@@ -1,6 +1,6 @@
 # Plan
 
-Six milestones. Each ends with a tagged public release.
+Six milestones. Each ends with a tagged public release. A prototype covering parts of milestones 1 to 3 (14 cases, two verifiers) was published on 21 November 2026; see [results/](results/README.md).
 
 | # | Milestone | Output |
 | --- | --- | --- |

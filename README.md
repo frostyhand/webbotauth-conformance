@@ -2,7 +2,24 @@
 
 An open, implementation-neutral conformance suite for **verifiers** of [Web Bot Auth](https://datatracker.ietf.org/doc/draft-ietf-webbotauth-httpsig-protocol/), the IETF draft that lets automated clients (crawlers, bots and agents) sign HTTP requests with [RFC 9421](https://www.rfc-editor.org/rfc/rfc9421) message signatures and publish their keys in a directory.
 
-**Status: planning.** There is no code yet. This repository holds the plan; the work is described in [PLAN.md](PLAN.md). Comments and issues are welcome now, before anything is built.
+**Status: prototype.** A first runner with 14 cases exists and has been run against two verifiers; see [results/](results/README.md). The full plan is in [PLAN.md](PLAN.md). Comments and issues are welcome.
+
+## Try the prototype
+
+Requires Node.js 22 or later.
+
+```bash
+npm install
+node bin/wbac.mjs keygen --out keys/a.private.json > a.jwks.json
+```
+
+Host `a.jwks.json` at a stable HTTPS URL and put that URL in the `url` field of `keys/a.private.json`. A second key set on the same host (`--keys-b`) enables the shared-host and key-confusion cases. Then:
+
+```bash
+node bin/wbac.mjs run --target https://verifier.example/protected --keys-a keys/a.private.json --keys-b keys/b.private.json
+```
+
+The runner reads the outcome from a `Web-Bot-Auth-Outcome` response header (`verified`, `invalid` or `unverified`) if the verifier sends one, and otherwise from the status code. If the verifier reports which identifier it resolved, pass `--identity-field` (a dotted path into a JSON body) or send a `Web-Bot-Auth-Identity` header. To test Cloudflare's library, run `node adapters/cloudflare-web-bot-auth.mjs` and point the runner at it with `--skip-directory`.
 
 ## Why
 
